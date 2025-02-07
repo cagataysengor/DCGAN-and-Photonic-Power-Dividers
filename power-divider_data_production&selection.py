@@ -127,7 +127,7 @@ geometry = [
 
 count = 0
 number = 0
-number_iteration = 100000
+number_iteration = 75000
 desen_data = []
 input_datas_for_desen = []
 input_data_all_for_desen = []
