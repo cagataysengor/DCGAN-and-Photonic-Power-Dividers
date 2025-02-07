@@ -16,7 +16,7 @@ import tensorflow as tf
 tf.config.list_logical_devices()
 
 seed = 240
-# np.random.seed(seed)   # random sayıların sabitlenmesini sağlıyor. Her seferinde aynı random sayıları ürettir.
+# np.random.seed(seed)   
 mp.verbosity(0)
 Si = mp.Medium(index=3.4)
 air = mp.Medium(index=1)
