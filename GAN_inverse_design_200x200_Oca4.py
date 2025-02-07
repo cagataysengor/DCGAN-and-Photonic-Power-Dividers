@@ -20,15 +20,12 @@ from IPython import display
 
 train_images = np.load("upscaled_images.npy")
 
-ayiklanmis_images42_200x200 = np.load("ayiklanmis_fake_images_data42_200x200_asymmetric.npy")
-ayiklanmis_images43_200x200 = np.load("ayiklanmis_fake_images_data43_200x200_asymmetric.npy")
-ayiklanmis_images44_200x200 = np.load("ayiklanmis_fake_images_data44_200x200_asymmetric.npy")
+
 ayiklanmis_images45_200x200 = np.load("ayiklanmis_fake_images_data45_200x200_asymmetric.npy")
 ayiklanmis_images46_200x200 = np.load("ayiklanmis_fake_images_data46_200x200_asymmetric.npy")
 
 
-train_images = np.concatenate((train_images, ayiklanmis_images42_200x200,
-                               
+train_images = np.concatenate((train_images,                               
                                ayiklanmis_images45_200x200,ayiklanmis_images46_200x200
                                ))
 
@@ -37,27 +34,13 @@ train_images = train_images.reshape(train_images.shape[0], 200, 200, 1)
 train_images = train_images[np.random.permutation(train_images.shape[0])]
 
 
-# Assuming train_images is a NumPy array
-# num_shuffles = 15  # You can adjust this number as needed
+validation_images = train_images[500:]
+train_images = train_images[:500]
 
-# for _ in range(num_shuffles):
-#     np.random.shuffle(train_images)
 
-# np.save(file_path_fake_images,train_images)
-
-validation_images = train_images[60:]
-train_images = train_images[:60]
-
-# reshaped_data = train_images.reshape(-1, train_images.shape[2])
-
-# # Count the number of columns that are the same
-# num_same_columns = reshaped_data.shape[1] - np.unique(reshaped_data, axis=1).shape[1]
-
-# print(f"Number of columns that are the same: {num_same_columns}")
-
-BUFFER_SIZE = 60
-BATCH_SIZE1 = 3
-BATCH_SIZE2 = 3
+BUFFER_SIZE = train_images.shape[0]
+BATCH_SIZE1 = 32
+BATCH_SIZE2 = 16
 
 # Batch and shuffle the data
 train_dataset = tf.data.Dataset.from_tensor_slices(train_images).shuffle(BUFFER_SIZE).batch(BATCH_SIZE1)
@@ -67,7 +50,7 @@ validation_dataset = tf.data.Dataset.from_tensor_slices(validation_images).batch
 
 def make_generator_model():
     model = tf.keras.Sequential()
-    model.add(layers.Dense(50*50*256, use_bias=True, input_shape=(60,), kernel_initializer=tf.keras.initializers.HeNormal())) # , kernel_initializer=tf.keras.initializers.HeUniform()
+    model.add(layers.Dense(50*50*256, use_bias=True, input_shape=(600,), kernel_initializer=tf.keras.initializers.HeNormal())) # , kernel_initializer=tf.keras.initializers.HeUniform()
     model.add(layers.BatchNormalization())
     model.add(layers.LeakyReLU())
 
@@ -91,7 +74,7 @@ def make_generator_model():
 
 generator = make_generator_model()
 
-noise = tf.random.normal([1, 60])
+noise = tf.random.normal([1, 600])
 generated_image = generator(noise, training=False)
 
 plt.imshow(generated_image[0, :, :, 0], cmap='gray')
@@ -140,8 +123,8 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
                                  discriminator=discriminator)
 
 EPOCHS = 100
-noise_dim = 60
-num_examples_to_generate = 100
+noise_dim = 600
+num_examples_to_generate = 1000
 
 # You will reuse this seed overtime (so it's easier)
 # to visualize progress in the animated GIF)
@@ -270,21 +253,8 @@ def generate_and_save_images(model, epoch, test_input):
   # Notice `training` is set to False.
   # This is so all layers run in inference mode (batchnorm).
   predictions = model(test_input, training=False)
-  # predictions = np.round(predictions)
-  
-  
-
-  # fig = plt.figure(figsize=(4, 4))
-
-
-  # for i in range(predictions.shape[0]):
-  #      plt.subplot(4, 4, i+1)
-  #      plt.imshow(predictions[i, :, :, 0] , cmap='gray')
-  #      plt.axis('off')
-      
-
-  plt.savefig('image_at_epoch_{:04d}.png'.format(epoch))
-  plt.show()
+  #plt.savefig('image_at_epoch_{:04d}.png'.format(epoch))
+  #plt.show()
   np.save("prediction_images.npy",predictions)
 
 train(train_dataset, validation_dataset, EPOCHS)
@@ -310,7 +280,7 @@ display_image(EPOCHS)
 
 
 prediction_images = np.load("prediction_images.npy")
-prediction_images = prediction_images.reshape(100,200,200)
+prediction_images = prediction_images.reshape(1000,200,200)
 v_prediction_images = np.vectorize(lambda x: 1 if x > 0.5 else 0)(prediction_images)  
 plt.imshow(np.rot90(v_prediction_images[4], k=1) ,cmap="gray")
 np.save("v_prediction_images.npy",v_prediction_images)
