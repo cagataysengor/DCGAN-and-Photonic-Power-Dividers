@@ -102,9 +102,9 @@ sim.run(until_after_sources=mp.stop_when_fields_decayed(0.1, mp.Ez, pt, 1e-3))
 
 # for normalization run, save flux fields data for reflection plane
 straight_refl_data = sim.get_flux_data(refl)
-# straight_refl_data1 = mp.get_fluxes(refl)
 
-# print("RS=",straight_refl_data )
+
+print("RS=",straight_refl_data )
 
 # save incident power for transmission plane
 straight_tran_flux = mp.get_fluxes(tran)
@@ -127,14 +127,10 @@ geometry = [
 
 count = 0
 number = 0
-number_for_ie = 0
 number_iteration = 100000
 desen_data = []
-desen_data_ie = []
 input_datas_for_desen = []
-input_datas_for_desen_ie = []
 input_data_all_for_desen = []
-input_data_all_for_desen_ie = []
 
 file_path_desen = '/home/sengor/Inverse_design_files/pattern_data_symmetric.npy'     #replace with your file location
 file_path_optic = '/home/sengor/Inverse_design_files/optic_data_symmetric.npy'       #replace with your file location
