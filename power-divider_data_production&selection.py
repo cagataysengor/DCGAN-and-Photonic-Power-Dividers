@@ -269,17 +269,7 @@ counter = 0
 # input_data_all_for_ayiklanmis_desen = set()
 
 fake_images = np.load("v_prediction_images.npy")
-# fake_images = np.load("fake_images_data.npy")
-# fake_images = np.load("ayiklanmis_fake_images_data38_asymmetric.npy")
-# fake_images = np.load("ayiklanmis_fake_images_data46_200x200_asymmetric.npy")
-# fake_images = np.load("reconstructed_image.npy")
-# fake_images = fake_images[np.random.permutation(fake_images.shape[0])]
-# fake_images = np.load("upscaled_images.npy")[80:]
-# fake_images = np.load("a.npy").reshape(1,20,20)
-# shuffled_fake_images = np.copy(fake_images)
-# np.random.shuffle(shuffled_fake_images)
 
-# np.save(file_path_shuffled_fake_images, fake_images)
 
 for i in range(fake_images.shape[0]):
     sim.reset_meep()
@@ -347,17 +337,17 @@ for i in range(fake_images.shape[0]):
         
         ### use here for selected_pattern
         
-        # if rounded_data.tolist() not in input_data_all_for_ayiklanmis_desen:
-        #     input_data_all_for_ayiklanmis_desen.append(rounded_data.tolist())
-        #     np.save(file_path_ayiklanmis_optic, input_data_all_for_ayiklanmis_desen)
+        if rounded_data.tolist() not in input_data_all_for_ayiklanmis_desen:
+             input_data_all_for_ayiklanmis_desen.append(rounded_data.tolist())
+             np.save(file_path_ayiklanmis_optic, input_data_all_for_ayiklanmis_desen)
     
         
-        #     ayiklanmis_fake_images.append(fake_images[i])
-        #     np.save(file_path_ayiklanmis_fake_images, ayiklanmis_fake_images)
-        #     different = different + 1
-        #     print("different =",different)
+             ayiklanmis_fake_images.append(fake_images[i])
+             np.save(file_path_ayiklanmis_fake_images, ayiklanmis_fake_images)
+             different = different + 1
+             print("different =",different)
         
     
     print("Rs=" ,Rs, "Ts1=", Ts1, "Ts2=", Ts2, "Ls=", Ls)
-    # input_datas_for_fake_images.append(np.column_stack((Rs, Ts1, Ts2)))
-    # np.save(file_path_input_data_for_fake_images,input_datas_for_fake_images)
+    input_datas_for_fake_images.append(np.column_stack((Rs, Ts1, Ts2)))
+    np.save(file_path_input_data_for_fake_images,input_datas_for_fake_images)
