@@ -37,8 +37,8 @@ eta_d = 1-eta_e
 design_region_resolution = int(4*resolution)
 frequencies = 1/np.linspace(1.5, 1.6, 5)
 
-Nx = int((design_region_resolution*design_region_width)/10)  # change 10 to 1 if using 200x200 resolution for data selection
-Ny = int((design_region_resolution*design_region_height)/10) # change 10 to 1 if using 200x200 resolution for data selection
+Nx = int((design_region_resolution*design_region_width)/10)  
+Ny = int((design_region_resolution*design_region_height)/10) 
 
 design_variables = mp.MaterialGrid(mp.Vector3(Nx, Ny), air, Si)
 design_region = mpa.DesignRegion(design_variables, volume=mp.Volume(
