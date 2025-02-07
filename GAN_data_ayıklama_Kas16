@@ -16,7 +16,7 @@ import tensorflow as tf
 tf.config.list_logical_devices()
 
 seed = 240
-# np.random.seed(seed)   
+np.random.seed(seed)   
 mp.verbosity(0)
 Si = mp.Medium(index=3.4)
 air = mp.Medium(index=1)
@@ -128,7 +128,7 @@ geometry = [
 count = 0
 number = 0
 number_for_ie = 0
-number_iteration = 10
+number_iteration = 100000
 desen_data = []
 desen_data_ie = []
 input_datas_for_desen = []
