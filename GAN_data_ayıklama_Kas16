@@ -54,13 +54,10 @@ cell_size = mp.Vector3(Sx, Sy)
 
 pml_layers = [mp.PML(pml_size)]
 
-# fcen = 0.12
+
 fwidth = 0.1
 fcen = 1/1.55
-# width = 0.2
 
-# fwidth = width * fcen
-# fwidth = 0.1
 source_center = [-Sx/2.3 + pml_size - waveguide_length/3, 0, 0]
 source_size = mp.Vector3(0, 0.75, 0)
 kpoint = mp.Vector3(1, 0, 0)
@@ -139,8 +136,8 @@ input_datas_for_desen_ie = []
 input_data_all_for_desen = []
 input_data_all_for_desen_ie = []
 
-file_path_desen = '/home/sengor/Inverse_design_files/pattern_data_symmetric.npy'
-file_path_optic = '/home/sengor/Inverse_design_files/optic_data_symmetric.npy'
+file_path_desen = '/home/sengor/Inverse_design_files/pattern_data_symmetric.npy'     #replace with your file location
+file_path_optic = '/home/sengor/Inverse_design_files/optic_data_symmetric.npy'       #replace with your file location
 
 for i in range(number_iteration):     ##### random symmetric pattern data generaion
 
@@ -260,8 +257,8 @@ np.save(file_path_optic,input_data_all_for_desen)
 input_data_all_for_ayiklanmis_desen = []
 ayiklanmis_fake_images = []
 
-file_path_ayiklanmis_optic = '/home/sengor/Inverse_design_files/ayiklanmis_optic_data_20x20_>90_asymmetric.npy'
-file_path_ayiklanmis_fake_images = '/home/sengor/Inverse_design_files/ayiklanmis_fake_images_data_20x20_>90_asymmetric.npy'
+file_path_ayiklanmis_optic = '/home/sengor/Inverse_design_files/ayiklanmis_optic_data_20x20_>90_asymmetric.npy'                #replace with your file 
+file_path_ayiklanmis_fake_images = '/home/sengor/Inverse_design_files/ayiklanmis_fake_images_data_20x20_>90_asymmetric.npy'    #replace with your file 
 precision = 8
 different = 0
 counter = 0
@@ -348,7 +345,7 @@ for i in range(fake_images.shape[0]):
         counter = counter + 1
         print("counter=",counter)
         
-        ### use here
+        ### use here for selected_pattern
         
         # if rounded_data.tolist() not in input_data_all_for_ayiklanmis_desen:
         #     input_data_all_for_ayiklanmis_desen.append(rounded_data.tolist())
