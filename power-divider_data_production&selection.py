@@ -205,7 +205,7 @@ for i in range(number_iteration):     ##### random symmetric pattern data genera
     Ls = (1- Rs - Ts1- Ts2)
     print("Rs=" ,Rs, "Ts1=", Ts1, "Ts2=", Ts2, "Ls=", Ls)
     
-    if Ts1 >=0.0035 and Ts2 >=0.0035:
+    if Ts1 >=0.35 and Ts2 >=0.35:
        print("Rs=" ,Rs, "Ts1=", Ts1, "Ts2=", Ts2, "Ls=", Ls)
        number = number + 1
        print("number=", number)
